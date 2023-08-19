@@ -1,6 +1,8 @@
+import s from './Navbar.module.css'
+
 export const Navbar = () => {
     return (
-        <nav className={'nav'}>
+        <nav className={s.nav}>
             <ul>
                 <li>
                     <a href="">Profile</a>

@@ -1,0 +1,19 @@
+.content {
+    grid-area: c;
+    background-color: lightpink;
+}
+
+.banner {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+
+}
+
+.avatar {
+    width: 100px;
+}
+
+ul {
+    list-style: none;
+}
