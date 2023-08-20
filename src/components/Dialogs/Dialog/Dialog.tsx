@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 type DialogPropsType = {
     name: string
-    id: string
+    id: number
     active?: boolean
 }
 export const Dialog = (props: DialogPropsType) => {
