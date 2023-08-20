@@ -15,3 +15,7 @@
     grid-area: c;
     background-color: lightpink;
 }
+
+a {
+    text-decoration: none;
+}
