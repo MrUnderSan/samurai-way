@@ -5,4 +5,19 @@
 
 ul {
     list-style: none;
+    color: white;
+}
+
+li {
+
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+
+.link_active {
+    color: gold;
+    font-weight: bold;
 }
