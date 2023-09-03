@@ -3,6 +3,12 @@ import {Posts} from './Posts/Posts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 
 export const Profile = () => {
+
+    const posts = [
+        {id: 1, message: 'Its my first post', likeCount: 20},
+        {id: 2, message: 'Yo!', likeCount: 10}
+    ]
+
     return (
         <div className={s.content}>
             <div>
@@ -18,7 +24,7 @@ export const Profile = () => {
                 </div>
                 <button>add post</button>
             </div>
-            <Posts/>
+            <Posts posts={posts}/>
         </div>
     );
 };
