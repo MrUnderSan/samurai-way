@@ -1,3 +1,16 @@
 .message {
-    padding: 3px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.messageMy {
+    text-align: left;
+    background-color: aquamarine;
+    justify-self: left;
+}
+
+.messageToMe {
+    text-align: right;
+    background-color: aqua;
+    justify-self: right;
 }

@@ -1,0 +1,14 @@
+.friendsItems {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+
+}
+
+.friend {
+    width: 40px;
+}
+
+.friendsImg {
+    width: 100%;
+}

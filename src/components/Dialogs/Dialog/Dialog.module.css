@@ -5,3 +5,7 @@
 .dialog_active {
     color: gold;
 }
+
+.dialogImg {
+    width: 15px;
+}

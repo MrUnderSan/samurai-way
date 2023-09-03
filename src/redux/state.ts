@@ -21,6 +21,13 @@ export const state = {
             {id: 3, message: 'How are you?'},
             {id: 4, message: 'Fine, tnx'}
         ]
+    },
+    sidebar: {
+       friends: [
+           {id: 1, name: 'Dimych'},
+           {id: 2, name: 'Andrey'},
+           {id: 3, name: 'Sveta'},
+       ]
     }
 
 }

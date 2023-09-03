@@ -5,7 +5,11 @@ type MessagePropsType = {
     message: string
 }
 export const Message = (props: MessagePropsType) => {
+
+    const formatMessage = props.id % 2 === 0 ? s.messageToMe : s.messageMy
+
+
     return (
-        <div className={s.message}>{props.message}</div>
+        <span className={`${s.message} ${formatMessage}`}>{props.message}</span>
     )
 }

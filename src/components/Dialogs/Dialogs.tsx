@@ -27,7 +27,7 @@ export const Dialogs: React.FC<PropsType> = ({state}) => {
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
-            <div className={s.mesages}>
+            <div className={s.messages}>
                 {messageElements}
             </div>
         </div>

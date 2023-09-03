@@ -25,6 +25,11 @@ export type PostsType = {
     likeCount: number
 }
 
+export type FriendsType = {
+    id: number
+    name: string
+}
+
 type StateType = {
     profilePage: {
         posts: PostsType[]
@@ -32,6 +37,9 @@ type StateType = {
     messagesPage: {
         dialogs: DialogsType[]
         messages: MessagesType[]
+    }
+    sidebar: {
+        friends: FriendsType[]
     }
 }
 
@@ -41,14 +49,14 @@ type PropsType = {
 
 const App: React.FC<PropsType> = ({state}) => {
 
-    const {profilePage, messagesPage} = state
+    const {profilePage, messagesPage, sidebar} = state
 
     return (
         <BrowserRouter>
             <div className="app-wrapper">
 
                 <Header/>
-                <Navbar/>
+                <Navbar state={sidebar} />
                 <div className="app-wrapper-content">
                     <Route exact path="/profile" render={()=><Profile state={profilePage} />}/>
                     <Route exact path="/dialogs" render={()=><Dialogs state={messagesPage}/>} />

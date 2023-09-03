@@ -1,8 +1,15 @@
 import s from './Navbar.module.css';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import {FriendsType} from '../../App';
+import {Friends} from '../Friends/Friends';
 
-export const Navbar = () => {
+type PropsType = {
+    state: {
+        friends: FriendsType[]
+    }
+}
+export const Navbar: React.FC<PropsType> = ({state}) => {
     return (
         <nav className={s.nav}>
             <ul>
@@ -22,6 +29,8 @@ export const Navbar = () => {
                     <NavLink to='/settings' activeClassName={s.link_active} className={s.link}>Settings</NavLink>
                 </li>
             </ul>
+
+            <Friends friends={state.friends}/>
         </nav>
     );
 };
