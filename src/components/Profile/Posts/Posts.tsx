@@ -1,15 +1,9 @@
-import s from './Posts.module.css';
 import {Post} from './Post/Post';
 import React from 'react';
-
-type PostType = {
-    id: number
-    message: string
-    likeCount: number
-}
+import {PostsType} from '../../../App';
 
 type PropsType = {
-    posts: PostType[]
+    posts: PostsType[]
 }
 
 export const Posts: React.FC<PropsType> = ({posts}) => {

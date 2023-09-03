@@ -4,17 +4,21 @@ import {Message} from './Message/Message';
 import {DialogsType, MessagesType} from '../../App';
 import React from 'react';
 
-type PropsType = {
+type StateType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
 }
-export const Dialogs: React.FC<PropsType> = ({dialogs, messages}) => {
 
-    const dialogsElements = dialogs.map(d => (
+type PropsType = {
+    state: StateType
+}
+export const Dialogs: React.FC<PropsType> = ({state}) => {
+
+    const dialogsElements = state.dialogs.map(d => (
         <Dialog id={d.id} name={d.name}/>
     ))
 
-    const messageElements = messages.map(m => (
+    const messageElements = state.messages.map(m => (
         <Message id={m.id} message={m.message}/>
     ))
 

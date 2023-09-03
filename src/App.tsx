@@ -25,19 +25,23 @@ export type PostsType = {
     likeCount: number
 }
 
-type DataType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    posts: PostsType[]
+type StateType = {
+    profilePage: {
+        posts: PostsType[]
+    }
+    messagesPage: {
+        dialogs: DialogsType[]
+        messages: MessagesType[]
+    }
 }
 
 type PropsType = {
-    data: DataType
+    state: StateType
 }
 
-const App: React.FC<PropsType> = ({data}) => {
+const App: React.FC<PropsType> = ({state}) => {
 
-    const {dialogs, messages, posts} = data
+    const {profilePage, messagesPage} = state
 
     return (
         <BrowserRouter>
@@ -46,8 +50,8 @@ const App: React.FC<PropsType> = ({data}) => {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route exact path="/profile" render={()=><Profile posts={posts} />}/>
-                    <Route exact path="/dialogs" render={()=><Dialogs dialogs={dialogs} messages={messages}/>} />
+                    <Route exact path="/profile" render={()=><Profile state={profilePage} />}/>
+                    <Route exact path="/dialogs" render={()=><Dialogs state={messagesPage}/>} />
                     <Route exact path="/news" component={News}/>
                     <Route exact path="/music" component={Music}/>
                     <Route exact path="/settings" component={Settings}/>

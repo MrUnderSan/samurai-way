@@ -4,10 +4,14 @@ import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostsType} from '../../App';
 import React from 'react';
 
-type PropsType = {
+type StateType = {
     posts: PostsType[]
 }
-export const Profile: React.FC<PropsType> = ({posts}) => {
+
+type PropsType = {
+    state: StateType
+}
+export const Profile: React.FC<PropsType> = ({state}) => {
 
     return (
         <div className={s.content}>
@@ -24,7 +28,7 @@ export const Profile: React.FC<PropsType> = ({posts}) => {
                 </div>
                 <button>add post</button>
             </div>
-            <Posts posts={posts}/>
+            <Posts posts={state.posts}/>
         </div>
     );
 };
