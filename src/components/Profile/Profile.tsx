@@ -1,13 +1,13 @@
 import s from './Profile.module.css';
 import {Posts} from './Posts/Posts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
+import {PostsType} from '../../App';
+import React from 'react';
 
-export const Profile = () => {
-
-    const posts = [
-        {id: 1, message: 'Its my first post', likeCount: 20},
-        {id: 2, message: 'Yo!', likeCount: 10}
-    ]
+type PropsType = {
+    posts: PostsType[]
+}
+export const Profile: React.FC<PropsType> = ({posts}) => {
 
     return (
         <div className={s.content}>
