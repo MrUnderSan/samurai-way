@@ -2,7 +2,7 @@ import s from './Dialogs.module.css';
 import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
 import {DialogsType, MessagesType} from '../../App';
-import React from 'react';
+import React, {createRef} from 'react';
 
 type StateType = {
     dialogs: DialogsType[]
@@ -14,6 +14,8 @@ type PropsType = {
 }
 export const Dialogs: React.FC<PropsType> = ({state}) => {
 
+    const newMessage = createRef<HTMLTextAreaElement>();
+
     const dialogsElements = state.dialogs.map(d => (
         <Dialog id={d.id} name={d.name}/>
     ))
@@ -22,6 +24,12 @@ export const Dialogs: React.FC<PropsType> = ({state}) => {
         <Message id={m.id} message={m.message}/>
     ))
 
+    const addMessage = () => {
+        if(newMessage.current) {
+            alert(newMessage.current.value)
+        }
+    }
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -29,6 +37,12 @@ export const Dialogs: React.FC<PropsType> = ({state}) => {
             </div>
             <div className={s.messages}>
                 {messageElements}
+            </div>
+            <div>
+                <div>
+                    <textarea ref={newMessage}/>
+                </div>
+                <button onClick={addMessage}>add message</button>
             </div>
         </div>
     );

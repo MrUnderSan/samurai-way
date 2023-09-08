@@ -22,12 +22,6 @@ export const Profile: React.FC<PropsType> = ({state}) => {
             </div>
             <ProfileInfo imgSrc="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                          description="description"/>
-            <div>
-                <div>
-                    <textarea/>
-                </div>
-                <button>add post</button>
-            </div>
             <Posts posts={state.posts}/>
         </div>
     );
