@@ -45,9 +45,10 @@ type StateType = {
 
 type PropsType = {
     state: StateType
+    addPost: (postMessage: string) => void
 }
 
-const App: React.FC<PropsType> = ({state}) => {
+const App: React.FC<PropsType> = ({state, addPost}) => {
 
     const {profilePage, messagesPage, sidebar} = state
 
@@ -58,7 +59,7 @@ const App: React.FC<PropsType> = ({state}) => {
                 <Header/>
                 <Navbar state={sidebar} />
                 <div className="app-wrapper-content">
-                    <Route exact path="/profile" render={()=><Profile state={profilePage} />}/>
+                    <Route exact path="/profile" render={()=><Profile state={profilePage} addPost={addPost} />}/>
                     <Route exact path="/dialogs" render={()=><Dialogs state={messagesPage}/>} />
                     <Route exact path="/news" component={News}/>
                     <Route exact path="/music" component={Music}/>

@@ -10,8 +10,9 @@ type StateType = {
 
 type PropsType = {
     state: StateType
+    addPost: (postMessage: string) => void
 }
-export const Profile: React.FC<PropsType> = ({state}) => {
+export const Profile: React.FC<PropsType> = ({state, addPost}) => {
 
     return (
         <div className={s.content}>
@@ -22,7 +23,7 @@ export const Profile: React.FC<PropsType> = ({state}) => {
             </div>
             <ProfileInfo imgSrc="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                          description="description"/>
-            <Posts posts={state.posts}/>
+            <Posts posts={state.posts} addPost={addPost}/>
         </div>
     );
 };
