@@ -11,7 +11,7 @@ export const Posts: React.FC<PropsType> = ({posts}) => {
     const newPostElement = createRef<HTMLTextAreaElement>();
 
     const postsElements = posts.map(p => (
-        <Post id={p.id} message={p.message} likeCount={p.likeCount}/>
+        <Post id={p.id} message={p.message} likesCount={p.likesCount}/>
     ))
 
     const addPost = () => {

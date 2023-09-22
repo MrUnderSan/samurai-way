@@ -22,7 +22,7 @@ export type MessagesType = {
 export type PostsType = {
     id: number
     message: string
-    likeCount: number
+    likesCount: number
 }
 
 export type FriendsType = {

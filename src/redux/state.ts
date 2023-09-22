@@ -1,8 +1,8 @@
 export const state = {
     profilePage: {
         posts: [
-            {id: 1, message: 'Its my first post', likeCount: 20},
-            {id: 2, message: 'Yo!', likeCount: 10}
+            {id: 1, message: 'Its my first post', likesCount: 20},
+            {id: 2, message: 'Yo!', likesCount: 10}
         ]
     },
     messagesPage: {
