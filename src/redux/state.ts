@@ -1,5 +1,6 @@
-import {rerenderEntireTree} from '../render';
 import {StateType} from '../App';
+
+let rerenderEntireTree = () => {}
 
 export const state: StateType = {
     profilePage: {
@@ -42,25 +43,29 @@ export const addPost = () => {
     const newPost = {id: 5, message: state.profilePage.newPostText, likesCount: 0}
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 
 export const updateNewPostText = (newPostText: string) => {
     state.profilePage.newPostText = newPostText
 
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewMessageText = (newMessageText: string) => {
     state.messagesPage.newMessageText = newMessageText
 
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const addMessage = () => {
     const newMessage =  {id: state.messagesPage.messages.length + 1, message: state.messagesPage.newMessageText}
     state.messagesPage.messages.push(newMessage)
     state.messagesPage.newMessageText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+export const subscribe = (observer: () => void)  => {
+    rerenderEntireTree = observer
 }
