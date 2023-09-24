@@ -18,6 +18,7 @@ export const Posts: React.FC<PropsType> = ({posts, addPost}) => {
     const addPostHandler = () => {
         if(newPostElement.current) {
             addPost(newPostElement.current.value)
+            newPostElement.current.value = ''
         }
     }
 

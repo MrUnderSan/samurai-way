@@ -1,4 +1,7 @@
-export const state = {
+import {rerenderEntireTree} from '../render';
+import {StateType} from '../App';
+
+export const state: StateType = {
     profilePage: {
         posts: [
             {id: 1, message: 'Its my first post', likesCount: 20},
@@ -23,11 +26,11 @@ export const state = {
         ]
     },
     sidebar: {
-       friends: [
-           {id: 1, name: 'Dimych'},
-           {id: 2, name: 'Andrey'},
-           {id: 3, name: 'Sveta'},
-       ]
+        friends: [
+            {id: 1, name: 'Dimych'},
+            {id: 2, name: 'Andrey'},
+            {id: 3, name: 'Sveta'},
+        ]
     }
 
 }
@@ -35,4 +38,6 @@ export const state = {
 export const addPost = (postMessage: string) => {
     const newPost = {id: 5, message: postMessage, likesCount: 0}
     state.profilePage.posts.push(newPost)
+
+    rerenderEntireTree(state)
 }

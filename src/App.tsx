@@ -30,7 +30,7 @@ export type FriendsType = {
     name: string
 }
 
-type StateType = {
+export type StateType = {
     profilePage: {
         posts: PostsType[]
     }
@@ -54,22 +54,21 @@ const App: React.FC<PropsType> = ({state, addPost}) => {
 
     return (
 
-            <div className="app-wrapper">
+        <div className="app-wrapper">
 
-                <Header/>
-                <Navbar state={sidebar} />
-                <div className="app-wrapper-content">
-                    <Route exact path="/profile" render={()=><Profile state={profilePage} addPost={addPost} />}/>
-                    <Route exact path="/dialogs" render={()=><Dialogs state={messagesPage}/>} />
-                    <Route exact path="/news" component={News}/>
-                    <Route exact path="/music" component={Music}/>
-                    <Route exact path="/settings" component={Settings}/>
-
-                </div>
-
+            <Header/>
+            <Navbar state={sidebar}/>
+            <div className="app-wrapper-content">
+                <Route exact path="/profile" render={() => <Profile state={profilePage} addPost={addPost}/>}/>
+                <Route exact path="/dialogs" render={() => <Dialogs state={messagesPage}/>}/>
+                <Route exact path="/news" component={News}/>
+                <Route exact path="/music" component={Music}/>
+                <Route exact path="/settings" component={Settings}/>
             </div>
 
-    );
-};
+        </div>
 
-export default App;
+    )
+}
+
+export default App
