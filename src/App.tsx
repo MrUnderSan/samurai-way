@@ -32,11 +32,13 @@ export type FriendsType = {
 
 export type StateType = {
     profilePage: {
-        posts: PostsType[]
+        posts: PostsType[],
+        newPostText: string
     }
     messagesPage: {
         dialogs: DialogsType[]
         messages: MessagesType[]
+        newMessageText: string
     }
     sidebar: {
         friends: FriendsType[]
@@ -45,10 +47,16 @@ export type StateType = {
 
 type PropsType = {
     state: StateType
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
+    updateNewMessageText: (newMessageText: string) => void
+    addMessage: () => void
 }
 
-const App: React.FC<PropsType> = ({state, addPost}) => {
+const App: React.FC<PropsType> = (
+    {
+        state, addPost, updateNewPostText, addMessage, updateNewMessageText
+    }) => {
 
     const {profilePage, messagesPage, sidebar} = state
 
@@ -59,8 +67,18 @@ const App: React.FC<PropsType> = ({state, addPost}) => {
             <Header/>
             <Navbar state={sidebar}/>
             <div className="app-wrapper-content">
-                <Route exact path="/profile" render={() => <Profile state={profilePage} addPost={addPost}/>}/>
-                <Route exact path="/dialogs" render={() => <Dialogs state={messagesPage}/>}/>
+                <Route exact path="/profile" render={() =>
+                    <Profile
+                        state={profilePage}
+                        addPost={addPost}
+                        updateNewPostText={updateNewPostText}
+                    />}/>
+                <Route exact path="/dialogs" render={() =>
+                    <Dialogs
+                        state={messagesPage}
+                        addMessage={addMessage}
+                        updateNewMessageText={updateNewMessageText}
+                    />}/>
                 <Route exact path="/news" component={News}/>
                 <Route exact path="/music" component={Music}/>
                 <Route exact path="/settings" component={Settings}/>

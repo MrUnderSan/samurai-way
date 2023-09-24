@@ -4,10 +4,15 @@ import {PostsType} from '../../../App';
 
 type PropsType = {
     posts: PostsType[]
-    addPost: (postMessage: string) => void
+    newPostValue: string
+    addPost: () => void
+    updateNewPostText: (newPostText: string) => void
 }
 
-export const Posts: React.FC<PropsType> = ({posts, addPost}) => {
+export const Posts: React.FC<PropsType> = (
+    {
+        posts, newPostValue, addPost, updateNewPostText
+    }) => {
 
     const newPostElement = createRef<HTMLTextAreaElement>();
 
@@ -16,9 +21,12 @@ export const Posts: React.FC<PropsType> = ({posts, addPost}) => {
     ))
 
     const addPostHandler = () => {
-        if(newPostElement.current) {
-            addPost(newPostElement.current.value)
-            newPostElement.current.value = ''
+            addPost()
+    }
+
+    const onPostChange = () => {
+        if (newPostElement.current) {
+            updateNewPostText(newPostElement.current.value)
         }
     }
 
@@ -27,7 +35,11 @@ export const Posts: React.FC<PropsType> = ({posts, addPost}) => {
         <div>
             <div>
                 <div>
-                    <textarea ref={newPostElement}/>
+                    <textarea
+                        ref={newPostElement}
+                        value={newPostValue}
+                        onChange={onPostChange}
+                    />
                 </div>
                 <button onClick={addPostHandler}>add post</button>
             </div>
