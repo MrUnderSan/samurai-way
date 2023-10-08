@@ -2,7 +2,7 @@ import s from './Dialogs.module.css';
 import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
 import {DialogsType, MessagesType} from '../../App';
-import React, {createRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import {ActionsType, addMessage, updateNewMessageText} from '../../redux/state';
 
 type StateType = {
@@ -21,8 +21,6 @@ export const Dialogs: React.FC<PropsType> = (
         state, dispatch
     }) => {
 
-    const newMessage = createRef<HTMLTextAreaElement>();
-
     const dialogsElements = state.dialogs.map(d => (
         <Dialog key={d.id} id={d.id} name={d.name}/>
     ))
@@ -35,8 +33,8 @@ export const Dialogs: React.FC<PropsType> = (
         dispatch(addMessage())
     }
 
-    const updateNewMessageTextHandler = () => {
-        newMessage.current && dispatch(updateNewMessageText(newMessage.current.value))
+    const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch(updateNewMessageText(e.currentTarget.value))
     }
 
     return (
@@ -50,7 +48,6 @@ export const Dialogs: React.FC<PropsType> = (
             <div>
                 <div>
                     <textarea
-                        ref={newMessage}
                         value={state.newMessageText}
                         onChange={updateNewMessageTextHandler}
                     />
