@@ -3,6 +3,7 @@ import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
 import {DialogsType, MessagesType} from '../../App';
 import React, {createRef} from 'react';
+import {ActionsType} from '../../redux/state';
 
 type StateType = {
     dialogs: DialogsType[]
@@ -12,12 +13,12 @@ type StateType = {
 
 type PropsType = {
     state: StateType
-    updateNewMessageText: (newMessageText: string) => void
-    addMessage: () => void
+    dispatch: (action: ActionsType) => void
+
 }
 export const Dialogs: React.FC<PropsType> = (
     {
-        state, updateNewMessageText, addMessage
+        state, dispatch
     }) => {
 
     const newMessage = createRef<HTMLTextAreaElement>();
@@ -31,12 +32,12 @@ export const Dialogs: React.FC<PropsType> = (
     ))
 
     const addMessageHandler = () => {
-        addMessage()
+        dispatch({type: 'ADD-MESSAGE'})
     }
 
     const updateNewMessageTextHandler = () => {
         if(newMessage.current) {
-            updateNewMessageText(newMessage.current.value)
+            dispatch({type: 'UPDATE-NEW-MESSAGE-TEXT', payload: {newMessageText: newMessage.current.value}})
         }
     }
 

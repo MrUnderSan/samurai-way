@@ -3,6 +3,7 @@ import {Posts} from './Posts/Posts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostsType} from '../../App';
 import React from 'react';
+import {ActionsType} from '../../redux/state';
 
 export type StateType = {
     posts: PostsType[]
@@ -11,10 +12,9 @@ export type StateType = {
 
 type PropsType = {
     state: StateType
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
+    dispatch: (action: ActionsType) => void
 }
-export const Profile: React.FC<PropsType> = ({state, addPost, updateNewPostText}) => {
+export const Profile: React.FC<PropsType> = ({state, dispatch}) => {
 
     return (
         <div className={s.content}>
@@ -25,7 +25,7 @@ export const Profile: React.FC<PropsType> = ({state, addPost, updateNewPostText}
             </div>
             <ProfileInfo imgSrc="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                          description="description"/>
-            <Posts posts={state.posts} newPostValue={state.newPostText} addPost={addPost} updateNewPostText={updateNewPostText}/>
+            <Posts posts={state.posts} newPostValue={state.newPostText} dispatch={dispatch}/>
         </div>
     );
 };

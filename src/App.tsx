@@ -8,6 +8,7 @@ import {Settings} from './components/Settings/Settings';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import React from 'react';
+import {ActionsType} from './redux/state';
 
 export type DialogsType = {
     id: number
@@ -47,15 +48,12 @@ export type StateType = {
 
 type PropsType = {
     state: StateType
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
-    updateNewMessageText: (newMessageText: string) => void
-    addMessage: () => void
+    dispatch: (action: ActionsType) => void
 }
 
 const App: React.FC<PropsType> = (
     {
-        state, addPost, updateNewPostText, addMessage, updateNewMessageText
+        state, dispatch
     }) => {
 
     const {profilePage, messagesPage, sidebar} = state
@@ -70,14 +68,12 @@ const App: React.FC<PropsType> = (
                 <Route exact path="/profile" render={() =>
                     <Profile
                         state={profilePage}
-                        addPost={addPost}
-                        updateNewPostText={updateNewPostText}
+                        dispatch={dispatch}
                     />}/>
                 <Route exact path="/dialogs" render={() =>
                     <Dialogs
                         state={messagesPage}
-                        addMessage={addMessage}
-                        updateNewMessageText={updateNewMessageText}
+                        dispatch={dispatch}
                     />}/>
                 <Route exact path="/news" component={News}/>
                 <Route exact path="/music" component={Music}/>

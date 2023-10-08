@@ -1,14 +1,35 @@
 import {StateType} from '../App';
 
+type AddPostAT = {
+    type: 'ADD-POST'
+}
+
+type UpdateNewPostTextAT = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    payload: {
+        newPostText: string
+    }
+}
+
+type UpdateNewMessageTextAT = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    payload: {
+        newMessageText: string
+    }
+}
+
+type AddMessageAT = {
+    type: 'ADD-MESSAGE'
+}
+
+export type ActionsType = AddPostAT | UpdateNewPostTextAT | UpdateNewMessageTextAT | AddMessageAT
+
 export type StoreType = {
     _state: StateType
+    _callSubscriber: () => void
     getState: () => StateType
-    _callSubscriber:  () => void
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
-    updateNewMessageText: (newMessageText: string) => void
-    addMessage: () => void
     subscribe: (observer: () => void) => void
+    dispatch: (action: ActionsType) => void
 }
 
 export const store: StoreType = {
@@ -47,32 +68,52 @@ export const store: StoreType = {
             ]
         }
     },
+    _callSubscriber() {
+    },
+
     getState() {
         return this._state
     },
-    _callSubscriber() {},
-    addPost() {
-        const newPost = {id: this._state.profilePage.posts.length + 1, message: this._state.profilePage.newPostText, likesCount: 0}
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    updateNewPostText(newPostText: string) {
-        this._state.profilePage.newPostText = newPostText
-        this._callSubscriber()
-    },
-    updateNewMessageText(newMessageText: string) {
-        this._state.messagesPage.newMessageText = newMessageText
-        this._callSubscriber()
-    },
-    addMessage() {
-        const newMessage =  {id: this._state.messagesPage.messages.length + 1, message: this._state.messagesPage.newMessageText}
-        this._state.messagesPage.messages.push(newMessage)
-        this._state.messagesPage.newMessageText = ''
-        this._callSubscriber()
-    },
     subscribe(observer: () => void) {
         this._callSubscriber = observer
+    },
+
+    dispatch(action) {
+        switch (action.type) {
+            case 'ADD-POST': {
+                const newPost = {
+                    id: this._state.profilePage.posts.length + 1,
+                    message: this._state.profilePage.newPostText,
+                    likesCount: 0,
+                };
+                this._state.profilePage.posts.push(newPost);
+                this._state.profilePage.newPostText = '';
+                this._callSubscriber();
+                break;
+            }
+            case 'UPDATE-NEW-POST-TEXT': {
+                this._state.profilePage.newPostText = action.payload.newPostText;
+                this._callSubscriber();
+                break;
+            }
+            case 'UPDATE-NEW-MESSAGE-TEXT': {
+                this._state.messagesPage.newMessageText = action.payload.newMessageText;
+                this._callSubscriber();
+                break;
+            }
+            case 'ADD-MESSAGE': {
+                const newMessage = {
+                    id: this._state.messagesPage.messages.length + 1,
+                    message: this._state.messagesPage.newMessageText,
+                };
+                this._state.messagesPage.messages.push(newMessage);
+                this._state.messagesPage.newMessageText = '';
+                this._callSubscriber();
+                break;
+            }
+            default:
+                throw new Error('Incorrect action');
+        }
     }
 
 }
