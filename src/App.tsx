@@ -20,10 +20,21 @@ export type MessagesType = {
     message: string
 }
 
+export type MessagesPageType = {
+    dialogs: DialogsType[]
+    messages: MessagesType[]
+    newMessageText: string
+}
+
 export type PostsType = {
     id: number
     message: string
     likesCount: number
+}
+
+export type ProfilePageType = {
+    posts: PostsType[],
+    newPostText: string
 }
 
 export type FriendsType = {
@@ -31,19 +42,14 @@ export type FriendsType = {
     name: string
 }
 
+export type SidebarType = {
+    friends: FriendsType[]
+}
+
 export type StateType = {
-    profilePage: {
-        posts: PostsType[],
-        newPostText: string
-    }
-    messagesPage: {
-        dialogs: DialogsType[]
-        messages: MessagesType[]
-        newMessageText: string
-    }
-    sidebar: {
-        friends: FriendsType[]
-    }
+    profilePage: ProfilePageType
+    messagesPage: MessagesPageType
+    sidebar: SidebarType
 }
 
 type PropsType = {

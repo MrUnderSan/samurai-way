@@ -3,7 +3,8 @@ import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
 import {DialogsType, MessagesType} from '../../App';
 import React, {ChangeEvent} from 'react';
-import {ActionsType, addMessage, updateNewMessageText} from '../../redux/state';
+import {ActionsType} from '../../redux/state';
+import {addMessage, updateNewMessageText} from '../../redux/messages-reducer';
 
 type StateType = {
     dialogs: DialogsType[]

@@ -1,4 +1,7 @@
 import {StateType} from '../App';
+import {addPost, profileReducer, updateNewPostText} from './profile-reducer';
+import {addMessage, messagesReducer, updateNewMessageText} from './messages-reducer';
+import {sidebarReducer} from './sidebar-reducer';
 
 type AddPostAT = ReturnType<typeof addPost>
 
@@ -65,66 +68,12 @@ export const store: StoreType = {
     },
 
     dispatch(action) {
-        switch (action.type) {
-            case 'ADD-POST': {
-                const newPost = {
-                    id: this._state.profilePage.posts.length + 1,
-                    message: this._state.profilePage.newPostText,
-                    likesCount: 0,
-                };
-                this._state.profilePage.posts.push(newPost);
-                this._state.profilePage.newPostText = '';
-                this._callSubscriber();
-                break;
-            }
-            case 'UPDATE-NEW-POST-TEXT': {
-                this._state.profilePage.newPostText = action.payload.newPostText;
-                this._callSubscriber();
-                break;
-            }
-            case 'UPDATE-NEW-MESSAGE-TEXT': {
-                this._state.messagesPage.newMessageText = action.payload.newMessageText;
-                this._callSubscriber();
-                break;
-            }
-            case 'ADD-MESSAGE': {
-                const newMessage = {
-                    id: this._state.messagesPage.messages.length + 1,
-                    message: this._state.messagesPage.newMessageText,
-                };
-                this._state.messagesPage.messages.push(newMessage);
-                this._state.messagesPage.newMessageText = '';
-                this._callSubscriber();
-                break;
-            }
-            default:
-                throw new Error('Incorrect action');
-        }
-    }
-}
 
-export const addPost = () => {
-    return {
-        type: 'ADD-POST' as const
-    }
-}
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
-export const updateNewPostText = (newPostText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT' as const,
-        payload: {newPostText}
-    }
-}
+        this._callSubscriber();
 
-export const updateNewMessageText = (newMessageText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT' as const,
-        payload: {newMessageText}
-    }
-}
-
-export const addMessage = () => {
-    return {
-        type: 'ADD-MESSAGE' as const
     }
 }
