@@ -1,26 +1,12 @@
 import {StateType} from '../App';
 
-type AddPostAT = {
-    type: 'ADD-POST'
-}
+type AddPostAT = ReturnType<typeof addPost>
 
-type UpdateNewPostTextAT = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    payload: {
-        newPostText: string
-    }
-}
+type UpdateNewPostTextAT = ReturnType<typeof updateNewPostText>
 
-type UpdateNewMessageTextAT = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    payload: {
-        newMessageText: string
-    }
-}
+type UpdateNewMessageTextAT = ReturnType<typeof updateNewMessageText>
 
-type AddMessageAT = {
-    type: 'ADD-MESSAGE'
-}
+type AddMessageAT = ReturnType<typeof addMessage>
 
 export type ActionsType = AddPostAT | UpdateNewPostTextAT | UpdateNewMessageTextAT | AddMessageAT
 
@@ -115,5 +101,30 @@ export const store: StoreType = {
                 throw new Error('Incorrect action');
         }
     }
+}
 
+export const addPost = () => {
+    return {
+        type: 'ADD-POST' as const
+    }
+}
+
+export const updateNewPostText = (newPostText: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT' as const,
+        payload: {newPostText}
+    }
+}
+
+export const updateNewMessageText = (newMessageText: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-TEXT' as const,
+        payload: {newMessageText}
+    }
+}
+
+export const addMessage = () => {
+    return {
+        type: 'ADD-MESSAGE' as const
+    }
 }

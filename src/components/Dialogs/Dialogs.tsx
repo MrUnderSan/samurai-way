@@ -3,7 +3,7 @@ import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
 import {DialogsType, MessagesType} from '../../App';
 import React, {createRef} from 'react';
-import {ActionsType} from '../../redux/state';
+import {ActionsType, addMessage, updateNewMessageText} from '../../redux/state';
 
 type StateType = {
     dialogs: DialogsType[]
@@ -32,13 +32,11 @@ export const Dialogs: React.FC<PropsType> = (
     ))
 
     const addMessageHandler = () => {
-        dispatch({type: 'ADD-MESSAGE'})
+        dispatch(addMessage())
     }
 
     const updateNewMessageTextHandler = () => {
-        if(newMessage.current) {
-            dispatch({type: 'UPDATE-NEW-MESSAGE-TEXT', payload: {newMessageText: newMessage.current.value}})
-        }
+        newMessage.current && dispatch(updateNewMessageText(newMessage.current.value))
     }
 
     return (
