@@ -4,10 +4,12 @@ import {NavLink} from 'react-router-dom';
 import {FriendsType} from '../../App';
 import {Friends} from '../Friends/Friends';
 
+type StateType = {
+    friends: FriendsType[]
+}
+
 type PropsType = {
-    state: {
-        friends: FriendsType[]
-    }
+    state: StateType
 }
 export const Navbar: React.FC<PropsType> = ({state}) => {
     return (

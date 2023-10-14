@@ -1,18 +1,17 @@
 import {Post} from './Post/Post';
 import React, {createRef} from 'react';
 import {PostsType} from '../../../App';
-import {ActionsType} from '../../../redux/store';
-import {addPost, updateNewPostText} from '../../../redux/profile-reducer';
 
 type PropsType = {
     posts: PostsType[]
     newPostValue: string
-    dispatch: (action: ActionsType) => void
+    addPost: () => void
+    updateNewPostText: (text: string) => void
 }
 
 export const Posts: React.FC<PropsType> = (
     {
-        posts, newPostValue, dispatch
+        posts, newPostValue, addPost, updateNewPostText
     }) => {
 
     const newPostElement = createRef<HTMLTextAreaElement>();
@@ -22,17 +21,16 @@ export const Posts: React.FC<PropsType> = (
     ))
 
     const addPostHandler = () => {
-        dispatch(addPost())
+        addPost()
     }
 
     const onPostChange = () => {
         if (newPostElement.current) {
-            dispatch(updateNewPostText(newPostElement.current.value))
+            updateNewPostText(newPostElement.current.value)
         }
     }
 
     return (
-
         <div>
             <div>
                 <div>

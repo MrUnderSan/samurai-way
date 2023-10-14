@@ -1,9 +1,9 @@
 import s from './Profile.module.css';
-import {Posts} from './Posts/Posts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostsType} from '../../App';
 import React from 'react';
 import {ActionsType} from '../../redux/store';
+import {PostsContainer} from './Posts/PostsContainer';
 
 export type StateType = {
     posts: PostsType[]
@@ -25,7 +25,7 @@ export const Profile: React.FC<PropsType> = ({state, dispatch}) => {
             </div>
             <ProfileInfo imgSrc="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                          description="description"/>
-            <Posts posts={state.posts} newPostValue={state.newPostText} dispatch={dispatch}/>
+            <PostsContainer state={state} dispatch={dispatch}/>
         </div>
     );
 };
