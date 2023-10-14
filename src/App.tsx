@@ -8,7 +8,7 @@ import {Settings} from './components/Settings/Settings';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import React from 'react';
-import {ActionsType} from './redux/state';
+import {ActionsType} from './redux/store';
 
 export type DialogsType = {
     id: number

@@ -3,7 +3,7 @@ import {Posts} from './Posts/Posts';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostsType} from '../../App';
 import React from 'react';
-import {ActionsType} from '../../redux/state';
+import {ActionsType} from '../../redux/store';
 
 export type StateType = {
     posts: PostsType[]
