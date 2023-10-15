@@ -9,8 +9,8 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    addMessage: () =>  void
-    updateNewMessageText: (text: string) =>  void
+    addMessage: () => void
+    updateNewMessageText: (text: string) => void
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -20,10 +20,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addMessage: () => {
-           dispatch(addMessage())
+            dispatch(addMessage())
+            dispatch(updateNewMessageText(''))
         },
         updateNewMessageText: (text: string) => {
-           dispatch(updateNewMessageText(text))
+            dispatch(updateNewMessageText(text))
         }
     }
 }

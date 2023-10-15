@@ -22,6 +22,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addPost: () => {
             dispatch(addPost())
+            dispatch(updateNewPostText(''))
         },
         updateNewPostText: (text: string) => {
             dispatch(updateNewPostText(text))
