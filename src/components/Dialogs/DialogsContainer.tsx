@@ -1,8 +1,8 @@
 import {DialogsType, MessagesType} from '../../App';
 import React from 'react';
-import {ActionsType} from '../../redux/store';
 import {addMessage, updateNewMessageText} from '../../redux/messages-reducer';
 import {Dialogs} from './Dialogs';
+import StoreContext from '../../StoreContext';
 
 type StateType = {
     dialogs: DialogsType[]
@@ -10,29 +10,28 @@ type StateType = {
     newMessageText: string
 }
 
-type PropsType = {
-    state: StateType
-    dispatch: (action: ActionsType) => void
-}
-export const DialogsContainer: React.FC<PropsType> = (
-    {
-        state,
-        dispatch
-    }) => {
+type PropsType = {}
 
-    const addMessageHandler = () => {
-        dispatch(addMessage())
-    }
-
-    const updateNewMessageTextHandler = (text: string) => {
-        dispatch(updateNewMessageText(text))
-    }
+export const DialogsContainer: React.FC<PropsType> = () => {
 
     return (
-        <Dialogs
-            state={state}
-            addMessage={addMessageHandler}
-            updateNewMessageText={updateNewMessageTextHandler}
-        />
+        <StoreContext.Consumer>
+            {store => {
+
+                const addMessageHandler = () => {
+                    store.dispatch(addMessage())
+                }
+
+                const updateNewMessageTextHandler = (text: string) => {
+                    store.dispatch(updateNewMessageText(text))
+                }
+                return <Dialogs
+                    state={store.getState().messagesPage}
+                    addMessage={addMessageHandler}
+                    updateNewMessageText={updateNewMessageTextHandler}
+                />
+            }}
+        </StoreContext.Consumer>
+
     );
 };

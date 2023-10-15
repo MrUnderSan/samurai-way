@@ -7,7 +7,6 @@ import {Settings} from './components/Settings/Settings';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import React from 'react';
-import {ActionsType} from './redux/store';
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 
 export type DialogsType = {
@@ -52,42 +51,23 @@ export type StateType = {
     sidebar: SidebarType
 }
 
-type PropsType = {
-    state: StateType
-    dispatch: (action: ActionsType) => void
-}
+type PropsType = {}
 
-const App: React.FC<PropsType> = (
-    {
-        state, dispatch
-    }) => {
-
-    const {profilePage, messagesPage, sidebar} = state
-
+const App: React.FC<PropsType> = () => {
     return (
-
         <div className="app-wrapper">
-
             <Header/>
-            <Navbar state={sidebar}/>
+            <Navbar/>
             <div className="app-wrapper-content">
                 <Route exact path="/profile" render={() =>
-                    <Profile
-                        state={profilePage}
-                        dispatch={dispatch}
-                    />}/>
+                    <Profile/>}/>
                 <Route exact path="/dialogs" render={() =>
-                    <DialogsContainer
-                        state={messagesPage}
-                        dispatch={dispatch}
-                    />}/>
+                    <DialogsContainer/>}/>
                 <Route exact path="/news" component={News}/>
                 <Route exact path="/music" component={Music}/>
                 <Route exact path="/settings" component={Settings}/>
             </div>
-
         </div>
-
     )
 }
 

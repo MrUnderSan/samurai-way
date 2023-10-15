@@ -2,7 +2,6 @@ import s from './Profile.module.css';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostsType} from '../../App';
 import React from 'react';
-import {ActionsType} from '../../redux/store';
 import {PostsContainer} from './Posts/PostsContainer';
 
 export type StateType = {
@@ -10,11 +9,8 @@ export type StateType = {
     newPostText: string
 }
 
-type PropsType = {
-    state: StateType
-    dispatch: (action: ActionsType) => void
-}
-export const Profile: React.FC<PropsType> = ({state, dispatch}) => {
+type PropsType = {}
+export const Profile: React.FC<PropsType> = () => {
 
     return (
         <div className={s.content}>
@@ -25,7 +21,7 @@ export const Profile: React.FC<PropsType> = ({state, dispatch}) => {
             </div>
             <ProfileInfo imgSrc="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                          description="description"/>
-            <PostsContainer state={state} dispatch={dispatch}/>
+            <PostsContainer/>
         </div>
     );
 };
