@@ -1,12 +1,16 @@
 import s from './Friends.module.css';
 import React from 'react';
-import {FriendsType} from '../../App';
+
+export type FriendsType = {
+    id: number
+    name: string
+}
 
 type PropsType = {
-    friends: FriendsType[]
+    state: FriendsType[]
 }
-export const Friends: React.FC<PropsType> = ({friends}) => {
-    const friendsItems = friends.map(f => (
+export const Friends: React.FC<PropsType> = ({state}) => {
+    const friendsItems = state.map(f => (
         <div className={s.friend} key={f.id}>
             <img className={s.friendsImg}
                  src="https://img.favpng.com/11/20/6/ninja-computer-icons-avatar-samurai-png-favpng-mJeFV4xf9mPrz2cwALkbspCd4.jpg"

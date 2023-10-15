@@ -9,48 +9,6 @@ import {Music} from './components/Music/Music';
 import React from 'react';
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 
-export type DialogsType = {
-    id: number
-    name: string
-}
-
-export type MessagesType = {
-    id: number
-    message: string
-}
-
-export type MessagesPageType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    newMessageText: string
-}
-
-export type PostsType = {
-    id: number
-    message: string
-    likesCount: number
-}
-
-export type ProfilePageType = {
-    posts: PostsType[],
-    newPostText: string
-}
-
-export type FriendsType = {
-    id: number
-    name: string
-}
-
-export type SidebarType = {
-    friends: FriendsType[]
-}
-
-export type StateType = {
-    profilePage: ProfilePageType
-    messagesPage: MessagesPageType
-    sidebar: SidebarType
-}
-
 type PropsType = {}
 
 const App: React.FC<PropsType> = () => {

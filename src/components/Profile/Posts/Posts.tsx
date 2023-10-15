@@ -1,22 +1,31 @@
 import {Post} from './Post/Post';
 import React, {createRef} from 'react';
-import {PostsType} from '../../../App';
+
+type PostsType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
+export type ProfilePageType = {
+    posts: PostsType[],
+    newPostText: string
+}
 
 type PropsType = {
-    posts: PostsType[]
-    newPostValue: string
+    state: ProfilePageType
     addPost: () => void
     updateNewPostText: (text: string) => void
 }
 
 export const Posts: React.FC<PropsType> = (
     {
-        posts, newPostValue, addPost, updateNewPostText
+        state, addPost, updateNewPostText
     }) => {
 
     const newPostElement = createRef<HTMLTextAreaElement>();
 
-    const postsElements = posts.map(p => (
+    const postsElements = state.posts.map(p => (
         <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>
     ))
 
@@ -36,7 +45,7 @@ export const Posts: React.FC<PropsType> = (
                 <div>
                     <textarea
                         ref={newPostElement}
-                        value={newPostValue}
+                        value={state.newPostText}
                         onChange={onPostChange}
                     />
                 </div>

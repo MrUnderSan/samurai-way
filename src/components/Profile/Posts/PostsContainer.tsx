@@ -1,30 +1,32 @@
-import React from 'react';
 import {addPost, updateNewPostText} from '../../../redux/profile-reducer';
-import {Posts} from './Posts';
-import StoreContext from '../../../StoreContext';
+import {Posts, ProfilePageType} from './Posts';
+import {connect} from 'react-redux';
+import {AppStateType} from '../../../redux/redux-store';
+import {Dispatch} from 'redux';
 
-type PropsType = {}
+type MapStateToPropsType = {
+    state: ProfilePageType
+}
 
-export const PostsContainer: React.FC<PropsType> = () => {
-    return (
-        <StoreContext.Consumer>
-            {store => {
+type MapDispatchToPropsType = {
+    addPost: () =>  void
+    updateNewPostText: (text: string) =>  void
+}
 
-                const addPostHandler = () => {
-                    store.dispatch(addPost())
-                }
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        state: state.profilePage
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+    return {
+        addPost: () => {
+            dispatch(addPost())
+        },
+        updateNewPostText: (text: string) => {
+            dispatch(updateNewPostText(text))
+        }
+    }
+}
 
-                const updateNewPostTextHandler = (text: string) => {
-                    store.dispatch(updateNewPostText(text))
-                }
-
-                return <Posts
-                    posts={store.getState().profilePage.posts}
-                    newPostValue={store.getState().profilePage.newPostText}
-                    addPost={addPostHandler}
-                    updateNewPostText={updateNewPostTextHandler}
-                />
-            }}
-        </StoreContext.Consumer>
-    )
-};
+export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)

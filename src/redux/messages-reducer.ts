@@ -1,7 +1,7 @@
 import {ActionsType} from './store';
-import {MessagesPageType} from '../App';
+import {DialogsPageType} from '../components/Dialogs/Dialogs';
 
-const initState = {
+const initState: DialogsPageType = {
     dialogs: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrey'},
@@ -21,7 +21,7 @@ const initState = {
     newMessageText: ''
 }
 
-export const messagesReducer = (state: MessagesPageType = initState, action: ActionsType) => {
+export const messagesReducer = (state: DialogsPageType = initState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT': {
             state.newMessageText = action.payload.newMessageText;

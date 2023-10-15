@@ -1,17 +1,26 @@
 import s from './Dialogs.module.css';
 import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
-import {DialogsType, MessagesType} from '../../App';
 import React, {ChangeEvent} from 'react';
 
-type StateType = {
+export type DialogsType = {
+    id: number
+    name: string
+}
+
+export type MessagesType = {
+    id: number
+    message: string
+}
+
+export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     newMessageText: string
 }
 
 type PropsType = {
-    state: StateType
+    state: DialogsPageType
     addMessage: () => void
     updateNewMessageText: (text: string) => void
 }

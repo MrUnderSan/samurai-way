@@ -1,8 +1,7 @@
 import s from './Navbar.module.css';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {Friends} from '../Friends/Friends';
-import StoreContext from '../../StoreContext';
+import {FriendsContainer} from '../Friends/FriendsContainer';
 
 type PropsType = {}
 export const Navbar: React.FC<PropsType> = () => {
@@ -26,12 +25,7 @@ export const Navbar: React.FC<PropsType> = () => {
                     <NavLink to="/settings" activeClassName={s.link_active} className={s.link}>Settings</NavLink>
                 </li>
             </ul>
-            <StoreContext.Consumer>
-                {store => (
-                    <Friends friends={store.getState().sidebar.friends}/>
-                )}
-            </StoreContext.Consumer>
-
+            <FriendsContainer />
         </nav>
     );
 };

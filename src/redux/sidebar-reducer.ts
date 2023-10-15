@@ -1,7 +1,11 @@
 import {ActionsType} from './store';
-import {SidebarType} from '../App';
+import {FriendsType} from '../components/Friends/Friends';
 
-const initState = {
+type InitStateType = {
+    friends: FriendsType[]
+}
+
+const initState: InitStateType = {
     friends: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Andrey'},
@@ -9,6 +13,6 @@ const initState = {
     ]
 }
 
-export const sidebarReducer = (state: SidebarType = initState, action: ActionsType) => {
+export const sidebarReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
     return state
 }

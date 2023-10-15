@@ -1,13 +1,7 @@
 import s from './Profile.module.css';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
-import {PostsType} from '../../App';
 import React from 'react';
 import {PostsContainer} from './Posts/PostsContainer';
-
-export type StateType = {
-    posts: PostsType[]
-    newPostText: string
-}
 
 type PropsType = {}
 export const Profile: React.FC<PropsType> = () => {

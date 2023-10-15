@@ -1,7 +1,49 @@
-import {StateType} from '../App';
 import {addPost, profileReducer, updateNewPostText} from './profile-reducer';
 import {addMessage, messagesReducer, updateNewMessageText} from './messages-reducer';
 import {sidebarReducer} from './sidebar-reducer';
+
+
+type DialogsType = {
+    id: number
+    name: string
+}
+
+type MessagesType = {
+    id: number
+    message: string
+}
+
+type MessagesPageType = {
+    dialogs: DialogsType[]
+    messages: MessagesType[]
+    newMessageText: string
+}
+
+type PostsType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
+type ProfilePageType = {
+    posts: PostsType[],
+    newPostText: string
+}
+
+type FriendsType = {
+    id: number
+    name: string
+}
+
+type SidebarType = {
+    friends: FriendsType[]
+}
+
+type StateType = {
+    profilePage: ProfilePageType
+    messagesPage: MessagesPageType
+    sidebar: SidebarType
+}
 
 type AddPostAT = ReturnType<typeof addPost>
 
