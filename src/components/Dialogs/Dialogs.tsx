@@ -20,27 +20,30 @@ export type DialogsPageType = {
 }
 
 type PropsType = {
-    state: DialogsPageType
-    addMessage: () => void
+    addMessage: (message: string) => void
     updateNewMessageText: (text: string) => void
-}
+} & DialogsPageType
+
 export const Dialogs: React.FC<PropsType> = (
     {
-        state,
+        dialogs,
+        messages,
+        newMessageText,
         addMessage,
         updateNewMessageText
     }) => {
 
-    const dialogsElements = state.dialogs.map(d => (
+    const dialogsElements = dialogs.map(d => (
         <Dialog key={d.id} id={d.id} name={d.name}/>
     ))
 
-    const messageElements = state.messages.map(m => (
+    const messageElements = messages.map(m => (
         <Message key={m.id} id={m.id} message={m.message}/>
     ))
 
     const addMessageHandler = () => {
-        addMessage()
+        addMessage(newMessageText)
+        updateNewMessageText('')
     }
 
     const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,7 +61,7 @@ export const Dialogs: React.FC<PropsType> = (
             <div>
                 <div>
                     <textarea
-                        value={state.newMessageText}
+                        value={newMessageText}
                         onChange={updateNewMessageTextHandler}
                     />
                 </div>

@@ -1,5 +1,5 @@
 import {addPost, profileReducer, updateNewPostText} from './profile-reducer';
-import {addMessage, messagesReducer, updateNewMessageText} from './messages-reducer';
+import {addMessage, dialogsReducer, updateNewMessageText} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 
 
@@ -112,7 +112,7 @@ export const store: StoreType = {
     dispatch(action) {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.messagesPage = messagesReducer(this._state.messagesPage, action)
+        this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
         this._callSubscriber();

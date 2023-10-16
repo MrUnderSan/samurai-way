@@ -21,7 +21,7 @@ const initState: DialogsPageType = {
     newMessageText: ''
 }
 
-export const messagesReducer = (state: DialogsPageType = initState, action: ActionsType): DialogsPageType => {
+export const dialogsReducer = (state: DialogsPageType = initState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT': {
             return {...state, newMessageText: action.payload.newMessageText}
@@ -29,7 +29,7 @@ export const messagesReducer = (state: DialogsPageType = initState, action: Acti
         case 'ADD-MESSAGE': {
             const newMessage = {
                 id: state.messages.length + 1,
-                message: state.newMessageText,
+                message: action.payload.message,
             };
             return {...state, messages: [...state.messages, newMessage]}
         }
@@ -45,8 +45,9 @@ export const updateNewMessageText = (newMessageText: string) => {
     }
 }
 
-export const addMessage = () => {
+export const addMessage = (message: string) => {
     return {
-        type: 'ADD-MESSAGE' as const
+        type: 'ADD-MESSAGE' as const,
+        payload: {message}
     }
 }
