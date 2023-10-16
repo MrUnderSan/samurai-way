@@ -16,7 +16,7 @@ export const profileReducer = (state: ProfilePageType = initState, action: Actio
         case 'ADD-POST': {
             const newPost = {
                 id: state.posts.length + 1,
-                message: state.newPostText,
+                message: action.payload.message,
                 likesCount: 0,
             };
             return {...state, posts: [...state.posts, newPost] }
@@ -29,9 +29,10 @@ export const profileReducer = (state: ProfilePageType = initState, action: Actio
     }
 }
 
-export const addPost = () => {
+export const addPost = (message: string) => {
     return {
-        type: 'ADD-POST' as const
+        type: 'ADD-POST' as const,
+        payload: {message}
     }
 }
 

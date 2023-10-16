@@ -3,7 +3,6 @@ import {profileReducer} from './profile-reducer';
 import {messagesReducer} from './messages-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 
-
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     messagesPage: messagesReducer,

@@ -14,7 +14,7 @@ export type ProfilePageType = {
 
 type PropsType = {
     state: ProfilePageType
-    addPost: () => void
+    addPost: (message: string) => void
     updateNewPostText: (text: string) => void
 }
 
@@ -30,7 +30,8 @@ export const Posts: React.FC<PropsType> = (
     ))
 
     const addPostHandler = () => {
-        addPost()
+        addPost(state.newPostText)
+        updateNewPostText('')
     }
 
     const onPostChange = () => {
