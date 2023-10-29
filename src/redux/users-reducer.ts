@@ -1,13 +1,13 @@
 export type UserType = {
-    id: string
-    photoUrl: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
-    }
+    "name": string,
+    "id": string,
+    "uniqueUrlName"?: string,
+    "photos": {
+        "small"?: string,
+        "large"?: string
+    },
+    "status"?: string,
+    "followed": boolean
 }
 
 type UsersStateType = {
