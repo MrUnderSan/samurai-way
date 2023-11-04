@@ -1,13 +1,12 @@
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/redux-store';
-import {Dispatch} from 'redux';
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unfollow,
     UsersStateType,
     UserType
 } from '../../redux/users-reducer';
@@ -66,14 +65,6 @@ class UsersContainer extends React.Component<PropsType> {
 
 type MapStateToPropsType = UsersStateType
 
-type MapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setUsers: (users: UserType[]) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-}
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         users: state.usersPage.users,
@@ -84,27 +75,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        follow: (userId: string) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: string) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: UserType[]) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC((currentPage)))
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching
+})(UsersContainer)
