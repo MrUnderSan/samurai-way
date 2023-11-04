@@ -13,6 +13,8 @@ const initState: InitStateType = {
     ]
 }
 
-export const sidebarReducer = (state: InitStateType = initState, action: ActionsType): InitStateType => {
+type SidebarAT = {}
+
+export const sidebarReducer = (state: InitStateType = initState, action: SidebarAT): InitStateType => {
     return state
 }

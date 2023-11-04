@@ -1,5 +1,5 @@
-import {addPost, profileReducer, updateNewPostText} from './profile-reducer';
-import {addMessage, dialogsReducer, updateNewMessageText} from './dialogs-reducer';
+import {ProfileActionsType, profileReducer} from './profile-reducer';
+import {DialogsActionsType, dialogsReducer} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
 
 
@@ -25,9 +25,32 @@ type PostsType = {
     likesCount: number
 }
 
+type ProfileType = {
+    "aboutMe": null | string
+    "contacts": {
+        "facebook": null | string
+        "website": null | string
+        "vk": null | string
+        "twitter": null | string
+        "instagram": null | string
+        "youtube": null | string
+        "github": null | string
+        "mainLink": null | string
+    },
+    "lookingForAJob": boolean
+    "lookingForAJobDescription": null | string
+    "fullName": string
+    "userId": number
+    "photos": {
+        "small": null | string
+        "large": null | string
+    }
+}
+
 type ProfilePageType = {
-    posts: PostsType[],
+    posts: PostsType[]
     newPostText: string
+    profile: null | ProfileType
 }
 
 type FriendsType = {
@@ -45,15 +68,8 @@ type StateType = {
     sidebar: SidebarType
 }
 
-type AddPostAT = ReturnType<typeof addPost>
 
-type UpdateNewPostTextAT = ReturnType<typeof updateNewPostText>
-
-type UpdateNewMessageTextAT = ReturnType<typeof updateNewMessageText>
-
-type AddMessageAT = ReturnType<typeof addMessage>
-
-export type ActionsType = AddPostAT | UpdateNewPostTextAT | UpdateNewMessageTextAT | AddMessageAT
+export type ActionsType = DialogsActionsType & ProfileActionsType
 
 export type StoreType = {
     _state: StateType
@@ -70,7 +86,8 @@ export const store: StoreType = {
                 {id: 1, message: 'Its my first post', likesCount: 20},
                 {id: 2, message: 'Yo!', likesCount: 10}
             ],
-            newPostText: 'it-kamasutra'
+            newPostText: 'it-kamasutra',
+            profile: null
         },
         messagesPage: {
             dialogs: [

@@ -1,5 +1,6 @@
 import {ActionsType} from './store';
 import {DialogsPageType} from '../components/Dialogs/Dialogs';
+import {addPost, updateNewPostText} from './profile-reducer';
 
 const initState: DialogsPageType = {
     dialogs: [
@@ -21,7 +22,13 @@ const initState: DialogsPageType = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (state: DialogsPageType = initState, action: ActionsType): DialogsPageType => {
+type UpdateNewMessageTextAT = ReturnType<typeof updateNewMessageText>
+
+type AddMessageAT = ReturnType<typeof addMessage>
+
+export type DialogsActionsType = UpdateNewMessageTextAT | AddMessageAT
+
+export const dialogsReducer = (state: DialogsPageType = initState, action: DialogsActionsType): DialogsPageType => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE-TEXT': {
             return {...state, newMessageText: action.payload.newMessageText}

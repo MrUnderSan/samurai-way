@@ -1,5 +1,5 @@
-import {addPost, updateNewPostText} from '../../../redux/profile-reducer';
-import {Posts, ProfilePageType} from './Posts';
+import {addPost, ProfilePageType, updateNewPostText} from '../../../redux/profile-reducer';
+import {Posts} from './Posts';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/redux-store';
 import {Dispatch} from 'redux';

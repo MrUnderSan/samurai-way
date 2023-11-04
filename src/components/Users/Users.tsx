@@ -2,6 +2,7 @@ import {UsersStateType} from '../../redux/users-reducer';
 import styles from './Users.module.css'
 import userPhoto from '../../assets/images/user.jpg'
 import React, {FC} from 'react';
+import {NavLink} from 'react-router-dom';
 
 type PropsType = {
     follow: (userId: string) => void
@@ -21,6 +22,7 @@ const Users: FC<PropsType> = (props) => {
         <div>
             {pages.map(p =>
                 <span
+                    key={p}
                     className={props.currentPage === p ? styles.selectedPage : ''}
                     onClick={() => {
                         props.onPageChanged(p)
@@ -31,8 +33,13 @@ const Users: FC<PropsType> = (props) => {
                 <div key={u.id}>
                           <span>
                             <div>
-                              <img src={u.photos.small ? u.photos.small : userPhoto} alt="avatar"
-                                   className={styles.userPhoto}/>
+                                <NavLink to={`/profile/${u.id}`}>
+                                    <img
+                                        src={u.photos.small ? u.photos.small : userPhoto}
+                                        alt="avatar"
+                                        className={styles.userPhoto}
+                                    />
+                                </NavLink>
                             </div>
                             <div>
                               {

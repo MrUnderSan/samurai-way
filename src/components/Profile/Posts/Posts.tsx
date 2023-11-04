@@ -1,16 +1,7 @@
 import {Post} from './Post/Post';
 import React, {createRef} from 'react';
+import {ProfilePageType} from '../../../redux/profile-reducer';
 
-type PostsType = {
-    id: number
-    message: string
-    likesCount: number
-}
-
-export type ProfilePageType = {
-    posts: PostsType[],
-    newPostText: string
-}
 
 type PropsType = {
     state: ProfilePageType
