@@ -9,6 +9,7 @@ type PropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     onPageChanged: (page: number) => void
+    toggleFollowingProgress: (followingInProgress: boolean, id: string) => void
 } & UsersStateType
 
 const Users: FC<PropsType> = (props) => {
@@ -31,8 +32,10 @@ const Users: FC<PropsType> = (props) => {
                     }}
                 >{p}</span>
             )}
-            {props.users.map(u => (
-                <div key={u.id}>
+            {props.users.map(u => {
+                const isCurrentUsersFollowingInProgress = props.followingInProgress.includes(u.id)
+                return (
+                    <div key={u.id}>
                           <span>
                             <div>
                                 <NavLink to={`/profile/${u.id}`}>
@@ -46,24 +49,28 @@ const Users: FC<PropsType> = (props) => {
                             <div>
                               {
                                   u.followed
-                                      ? <button onClick={() => {
+                                      ? <button disabled={isCurrentUsersFollowingInProgress} onClick={() => {
+                                          props.toggleFollowingProgress(true, u.id)
                                           followAPI.unfollow(u.id)
                                               .then(res => {
                                                   res.data.resultCode === 0 &&
                                                   props.unfollow(u.id)
+                                                  props.toggleFollowingProgress(false, u.id)
                                               })
                                       }}>Unfollow</button>
-                                      : <button onClick={() => {
+                                      : <button disabled={isCurrentUsersFollowingInProgress} onClick={() => {
+                                          props.toggleFollowingProgress(true, u.id)
                                           followAPI.follow(u.id)
                                               .then(res => {
                                                   res.data.resultCode === 0 &&
                                                   props.follow(u.id)
+                                                  props.toggleFollowingProgress(false, u.id)
                                               })
                                       }}>Follow</button>
                               }
                             </div>
                           </span>
-                    <span>
+                        <span>
                             <span>
                               <div>{u.name}</div>
                               <div>{u.status}</div>
@@ -73,8 +80,9 @@ const Users: FC<PropsType> = (props) => {
                               <div>{'u.location.city'}</div>
                             </span>
                           </span>
-                </div>
-            ))}
+                    </div>
+                )
+            })}
         </div>
     )
 }
