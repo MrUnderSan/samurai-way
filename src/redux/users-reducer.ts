@@ -1,3 +1,6 @@
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
+
 export type UserType = {
     'name': string,
     'id': string,
@@ -70,13 +73,13 @@ export const usersReducer = (state = initState, action: ActionsType): UsersState
     }
 }
 
-export const follow = (userId: string) => ({type: 'FOLLOW' as const, userId})
+export const followAC = (userId: string) => ({type: 'FOLLOW' as const, userId})
 
-type FollowType = ReturnType<typeof follow>
+type FollowType = ReturnType<typeof followAC>
 
-export const unfollow = (userId: string) => ({type: 'UNFOLLOW' as const, userId})
+export const unfollowAC = (userId: string) => ({type: 'UNFOLLOW' as const, userId})
 
-type UnfollowType = ReturnType<typeof unfollow>
+type UnfollowType = ReturnType<typeof unfollowAC>
 
 export const setUsers = (users: UserType[]) => ({type: 'SET-USERS' as const, users})
 
@@ -104,3 +107,36 @@ export const toggleFollowingProgress = (followingInProgress: boolean, id: string
 })
 
 type ToggleFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
+
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    toggleIsFetching(true)
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount > 50 ? 50 : data.totalCount))
+            dispatch(setCurrentPage(currentPage))
+        })
+}
+
+export const follow = (userId: string) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    usersAPI.follow(userId)
+        .then(res => {
+            res.data.resultCode === 0 &&
+            dispatch(followAC(userId))
+            dispatch(toggleFollowingProgress(false, userId))
+        })
+}
+
+export const unfollow = (userId: string) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    usersAPI.unfollow(userId)
+        .then(res => {
+            res.data.resultCode === 0 &&
+            dispatch(unfollowAC(userId))
+            dispatch(toggleFollowingProgress(false, userId))
+        })
+}
+
