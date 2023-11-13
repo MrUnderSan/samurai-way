@@ -2,7 +2,6 @@ import s from './Dialogs.module.css';
 import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
 import React, {ChangeEvent} from 'react';
-import {Redirect} from 'react-router-dom';
 
 export type DialogsType = {
     id: number
@@ -23,7 +22,6 @@ export type DialogsPageType = {
 type PropsType = {
     addMessage: (message: string) => void
     updateNewMessageText: (text: string) => void
-    isAuth: boolean
 } & DialogsPageType
 
 export const Dialogs: React.FC<PropsType> = (
@@ -33,7 +31,6 @@ export const Dialogs: React.FC<PropsType> = (
         newMessageText,
         addMessage,
         updateNewMessageText,
-        isAuth
     }) => {
 
     const dialogsElements = dialogs.map(d => (
@@ -52,8 +49,6 @@ export const Dialogs: React.FC<PropsType> = (
     const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         updateNewMessageText(e.currentTarget.value)
     }
-
-    if (!isAuth) return <Redirect to={'/login'} />;
 
     return (
         <div className={s.dialogs}>
