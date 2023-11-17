@@ -7,7 +7,9 @@ type UpdateNewPostTextAT = ReturnType<typeof updateNewPostText>
 
 type SetUserProfileAT = ReturnType<typeof setUserProfileAC>
 
-export type ProfileActionsType = AddPostAT | UpdateNewPostTextAT | SetUserProfileAT
+type SetUserStatusAT = ReturnType<typeof setUserStatusAC>
+
+export type ProfileActionsType = AddPostAT | UpdateNewPostTextAT | SetUserProfileAT | SetUserStatusAT
 
 
 export type PostsType = {
@@ -42,6 +44,7 @@ export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
     profile: null | ProfileType
+    status: string
 }
 
 const initState: ProfilePageType = {
@@ -50,7 +53,8 @@ const initState: ProfilePageType = {
         {id: 2, message: 'Yo!', likesCount: 10}
     ],
     newPostText: 'it-kamasutra',
-    profile: null
+    profile: null,
+    status: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initState, action: ProfileActionsType): ProfilePageType => {
@@ -68,6 +72,9 @@ export const profileReducer = (state: ProfilePageType = initState, action: Profi
         }
         case 'SET-USER-PROFILE': {
             return {...state, profile: action.payload.profile}
+        }
+        case 'SET-USER-STATUS': {
+            return {...state, status: action.payload.status}
         }
         default:
             return state
@@ -95,9 +102,23 @@ export const setUserProfileAC = (profile: any) => {
     }
 }
 
+export const setUserStatusAC = (status: string) => {
+    return {
+        type: 'SET-USER-STATUS' as const,
+        payload: {status}
+    }
+}
+
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getUserProfile(userId)
         .then(res => {
             dispatch(setUserProfileAC(res.data))
+        })
+}
+
+export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getUserStatus(userId)
+        .then(res => {
+            res.data && dispatch(setUserStatusAC(res.data))
         })
 }

@@ -51,6 +51,7 @@ type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
     profile: null | ProfileType
+    status: string
 }
 
 type FriendsType = {
@@ -87,7 +88,8 @@ export const store: StoreType = {
                 {id: 2, message: 'Yo!', likesCount: 10}
             ],
             newPostText: 'it-kamasutra',
-            profile: null
+            profile: null,
+            status: ''
         },
         messagesPage: {
             dialogs: [

@@ -6,8 +6,9 @@ import {ProfileType} from '../../redux/profile-reducer';
 
 type PropsType = {
     profile: ProfileType | null
+    status: string
 }
-export const Profile: React.FC<PropsType> = ({profile}) => {
+export const Profile: React.FC<PropsType> = ({profile, status}) => {
 
     return (
         <div className={s.content}>
@@ -16,6 +17,7 @@ export const Profile: React.FC<PropsType> = ({profile}) => {
                 imgSrc="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                 description="description"
                 profile={profile}
+                status={status}
             />
             <PostsContainer/>
         </div>
