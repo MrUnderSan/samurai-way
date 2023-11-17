@@ -9,6 +9,8 @@ type ProfileInfoPropsType = {
     description: string
     profile: ProfileType | null
     status: string
+
+    updateUserStatus: (status: string) => void
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
     return (
@@ -20,7 +22,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                      src={props.profile.photos.large ? props.profile.photos.large : props.imgSrc}
                      alt="avatar"/>
                 <div>{props.profile.aboutMe}</div>
-                <ProfileStatus status={props.status} />
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
             </div>
     )
 }

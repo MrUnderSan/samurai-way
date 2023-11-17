@@ -19,24 +19,24 @@ export type PostsType = {
 }
 
 export type ProfileType = {
-    "aboutMe": null | string
-    "contacts": {
-        "facebook": null | string
-        "website": null | string
-        "vk": null | string
-        "twitter": null | string
-        "instagram": null | string
-        "youtube": null | string
-        "github": null | string
-        "mainLink": null | string
+    'aboutMe': null | string
+    'contacts': {
+        'facebook': null | string
+        'website': null | string
+        'vk': null | string
+        'twitter': null | string
+        'instagram': null | string
+        'youtube': null | string
+        'github': null | string
+        'mainLink': null | string
     },
-    "lookingForAJob": boolean
-    "lookingForAJobDescription": null | string
-    "fullName": string
-    "userId": number
-    "photos": {
-        "small": null | string
-        "large": null | string
+    'lookingForAJob': boolean
+    'lookingForAJobDescription': null | string
+    'fullName': string
+    'userId': number
+    'photos': {
+        'small': null | string
+        'large': null | string
     }
 }
 
@@ -54,7 +54,7 @@ const initState: ProfilePageType = {
     ],
     newPostText: 'it-kamasutra',
     profile: null,
-    status: ''
+    status: 'enter your status'
 }
 
 export const profileReducer = (state: ProfilePageType = initState, action: ProfileActionsType): ProfilePageType => {
@@ -65,7 +65,7 @@ export const profileReducer = (state: ProfilePageType = initState, action: Profi
                 message: action.payload.message,
                 likesCount: 0,
             };
-            return {...state, posts: [...state.posts, newPost] }
+            return {...state, posts: [...state.posts, newPost]}
         }
         case 'UPDATE-NEW-POST-TEXT': {
             return {...state, newPostText: action.payload.newPostText}
@@ -120,5 +120,13 @@ export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getUserStatus(userId)
         .then(res => {
             res.data && dispatch(setUserStatusAC(res.data))
+        })
+}
+export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateUserStatus(status)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setUserStatusAC(status))
+            }
         })
 }
