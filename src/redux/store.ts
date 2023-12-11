@@ -1,7 +1,6 @@
-import {ProfileActionsType, profileReducer} from './profile-reducer';
-import {DialogsActionsType, dialogsReducer} from './dialogs-reducer';
+import {ProfileActionsType} from './profile-reducer';
+import {DialogsActionsType} from './dialogs-reducer';
 import {sidebarReducer} from './sidebar-reducer';
-
 
 type DialogsType = {
     id: number
@@ -16,7 +15,6 @@ type MessagesType = {
 type MessagesPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
-    newMessageText: string
 }
 
 type PostsType = {
@@ -49,7 +47,6 @@ type ProfileType = {
 
 type ProfilePageType = {
     posts: PostsType[]
-    newPostText: string
     profile: null | ProfileType
     status: string
 }
@@ -87,7 +84,6 @@ export const store: StoreType = {
                 {id: 1, message: 'Its my first post', likesCount: 20},
                 {id: 2, message: 'Yo!', likesCount: 10}
             ],
-            newPostText: 'it-kamasutra',
             profile: null,
             status: ''
         },
@@ -106,9 +102,7 @@ export const store: StoreType = {
                 {id: 2, message: 'Hello!'},
                 {id: 3, message: 'How are you?'},
                 {id: 4, message: 'Fine, tnx'}
-            ],
-
-            newMessageText: ''
+            ]
         },
         sidebar: {
             friends: [
@@ -129,12 +123,7 @@ export const store: StoreType = {
     },
 
     dispatch(action) {
-
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-
         this._callSubscriber();
-
     }
 }

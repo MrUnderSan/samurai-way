@@ -1,7 +1,6 @@
 import {Dispatch} from 'redux';
-import {authAPI} from '../api/api';
-
-export type AuthActionsType = SetAuthUserDataType
+import {authAPI, LoginBodyType} from '../api/api';
+import {AppThunk} from './redux-store';
 
 export type AuthDataType = {
     id: number | null
@@ -19,9 +18,16 @@ const initState: AuthDataType = {
 
 export const authReducer = (state = initState, action: AuthActionsType): AuthDataType => {
     switch (action.type) {
-        case 'SET-USER-DATA': {
+        case 'AUTH/SET-USER-DATA':
             return {...state, ...action.payload.data, isAuth: true}
-        }
+        case 'AUTH/LOGOUT':
+            return {
+                ...state,
+                id: null,
+                login: null,
+                email: null,
+                isAuth: false
+            }
         default:
             return state
     }
@@ -29,19 +35,53 @@ export const authReducer = (state = initState, action: AuthActionsType): AuthDat
 
 export const setAuthUserDataAC = (data: AuthDataType) => {
     return {
-        type: 'SET-USER-DATA' as const,
+        type: 'AUTH/SET-USER-DATA' as const,
         payload: {data}
     }
 }
 
-type SetAuthUserDataType = ReturnType<typeof setAuthUserDataAC>
-
 export const getAuthUserData = () => (dispatch: Dispatch) => {
     authAPI.getUserData()
         .then(res => {
-            res.data.resultCode === 0 &&
-            dispatch(setAuthUserDataAC(res.data.data))
+            if (res.data.resultCode === 0) {
+                dispatch(setAuthUserDataAC(res.data.data))
+            }
         })
-
 }
 
+export const login = (body: LoginBodyType): AppThunk => dispatch => {
+    authAPI.login(body)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(getAuthUserData())
+            } else {
+                alert(res.data.messages[0])
+            }
+        })
+}
+
+export const logout = (): AppThunk => dispatch => {
+    authAPI.logout()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(logoutAC())
+            } else {
+                alert(res.data.messages[0])
+            }
+        })
+}
+
+export const loginAC = (userId: number) => ({
+    type: 'AUTH/LOGIN',
+    userId
+} as const)
+
+export const logoutAC = () => ({
+    type: 'AUTH/LOGOUT'
+} as const)
+
+
+export type AuthActionsType =
+    | ReturnType<typeof setAuthUserDataAC>
+    | ReturnType<typeof loginAC>
+    | ReturnType<typeof logoutAC>
