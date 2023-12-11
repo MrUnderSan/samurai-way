@@ -16,31 +16,37 @@ type PropsType = RouteComponentProps<PathParamsType> & MapStateToPropsType & Map
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
-        !userId && (userId = '7597')
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+        let id = +this.props.match.params.userId
+        !id && this.props.authUserId && (id = this.props.authUserId)
+
+        this.props.getUserProfile(id)
+        this.props.getUserStatus(id)
     }
 
     render() {
-        return <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
+        return <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                        updateUserStatus={this.props.updateUserStatus}/>
     }
 }
 
 type MapStateToPropsType = {
     profile: ProfileType | null
     status: string
+    authUserId: number | null
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
-    getUserProfile: (userId: string) => void
-    getUserStatus: (userId: string) => void
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 export default compose<ComponentType>(

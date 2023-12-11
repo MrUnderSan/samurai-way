@@ -41,11 +41,13 @@ export const setAuthUserDataAC = (data: AuthDataType) => {
 }
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
-    authAPI.getUserData()
+    return authAPI.getUserData()
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setAuthUserDataAC(res.data.data))
             }
+        }).catch(e=> {
+            alert(e.message)
         })
 }
 

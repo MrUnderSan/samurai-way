@@ -96,14 +96,14 @@ export const setUserStatusAC = (status: string) => {
     }
 }
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getUserProfile(userId)
         .then(res => {
             dispatch(setUserProfileAC(res.data))
         })
 }
 
-export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
+export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getUserStatus(userId)
         .then(res => {
             res.data && dispatch(setUserStatusAC(res.data))
