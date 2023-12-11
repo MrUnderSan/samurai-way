@@ -3,13 +3,12 @@ import {profileAPI} from '../api/api';
 
 type AddPostAT = ReturnType<typeof addPost>
 
-type UpdateNewPostTextAT = ReturnType<typeof updateNewPostText>
 
 type SetUserProfileAT = ReturnType<typeof setUserProfileAC>
 
 type SetUserStatusAT = ReturnType<typeof setUserStatusAC>
 
-export type ProfileActionsType = AddPostAT | UpdateNewPostTextAT | SetUserProfileAT | SetUserStatusAT
+export type ProfileActionsType = AddPostAT | SetUserProfileAT | SetUserStatusAT
 
 
 export type PostsType = {
@@ -42,7 +41,6 @@ export type ProfileType = {
 
 export type ProfilePageType = {
     posts: PostsType[]
-    newPostText: string
     profile: null | ProfileType
     status: string
 }
@@ -52,7 +50,6 @@ const initState: ProfilePageType = {
         {id: 1, message: 'Its my first post', likesCount: 20},
         {id: 2, message: 'Yo!', likesCount: 10}
     ],
-    newPostText: 'it-kamasutra',
     profile: null,
     status: 'enter your status'
 }
@@ -66,9 +63,6 @@ export const profileReducer = (state: ProfilePageType = initState, action: Profi
                 likesCount: 0,
             };
             return {...state, posts: [...state.posts, newPost]}
-        }
-        case 'UPDATE-NEW-POST-TEXT': {
-            return {...state, newPostText: action.payload.newPostText}
         }
         case 'SET-USER-PROFILE': {
             return {...state, profile: action.payload.profile}
@@ -85,13 +79,6 @@ export const addPost = (message: string) => {
     return {
         type: 'ADD-POST' as const,
         payload: {message}
-    }
-}
-
-export const updateNewPostText = (newPostText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT' as const,
-        payload: {newPostText}
     }
 }
 

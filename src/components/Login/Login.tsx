@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Checkbox, Form, Input} from 'antd';
 import {useFormik} from 'formik';
-import {store, useAppDispatch, useAppSelector} from '../../redux/redux-store';
+import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
 import {login} from '../../redux/auth-reducer';
 import {Redirect} from 'react-router-dom';
 

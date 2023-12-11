@@ -1,48 +1,26 @@
 import {Post} from './Post/Post';
-import React, {createRef} from 'react';
+import {FC} from 'react';
 import {ProfilePageType} from '../../../redux/profile-reducer';
+import {NewPostForm} from './NewPostForm/NewPostForm';
 
 
 type PropsType = {
     state: ProfilePageType
     addPost: (message: string) => void
-    updateNewPostText: (text: string) => void
 }
 
-export const Posts: React.FC<PropsType> = (
+export const Posts: FC<PropsType> = (
     {
-        state, addPost, updateNewPostText
+        state, addPost
     }) => {
-
-    const newPostElement = createRef<HTMLTextAreaElement>();
 
     const postsElements = state.posts.map(p => (
         <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>
     ))
 
-    const addPostHandler = () => {
-        addPost(state.newPostText)
-        updateNewPostText('')
-    }
-
-    const onPostChange = () => {
-        if (newPostElement.current) {
-            updateNewPostText(newPostElement.current.value)
-        }
-    }
-
     return (
         <div>
-            <div>
-                <div>
-                    <textarea
-                        ref={newPostElement}
-                        value={state.newPostText}
-                        onChange={onPostChange}
-                    />
-                </div>
-                <button onClick={addPostHandler}>add post</button>
-            </div>
+            < NewPostForm onSubmit={addPost}/>
             <h3>my post:</h3>
             {postsElements}
         </div>

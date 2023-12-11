@@ -1,7 +1,8 @@
 import s from './Dialogs.module.css';
 import {Dialog} from './Dialog/Dialog';
 import {Message} from './Message/Message';
-import React, {ChangeEvent} from 'react';
+import {NewMessageForm} from './NewMessageForm/NewMessageForm';
+import {FC} from 'react';
 
 export type DialogsType = {
     id: number
@@ -16,21 +17,17 @@ export type MessagesType = {
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
-    newMessageText: string
 }
 
 type PropsType = {
     addMessage: (message: string) => void
-    updateNewMessageText: (text: string) => void
 } & DialogsPageType
 
-export const Dialogs: React.FC<PropsType> = (
+export const Dialogs: FC<PropsType> = (
     {
         dialogs,
         messages,
-        newMessageText,
-        addMessage,
-        updateNewMessageText,
+        addMessage
     }) => {
 
     const dialogsElements = dialogs.map(d => (
@@ -41,15 +38,6 @@ export const Dialogs: React.FC<PropsType> = (
         <Message key={m.id} id={m.id} message={m.message}/>
     ))
 
-    const addMessageHandler = () => {
-        addMessage(newMessageText)
-        updateNewMessageText('')
-    }
-
-    const updateNewMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        updateNewMessageText(e.currentTarget.value)
-    }
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -58,15 +46,7 @@ export const Dialogs: React.FC<PropsType> = (
             <div className={s.messages}>
                 {messageElements}
             </div>
-            <div>
-                <div>
-                    <textarea
-                        value={newMessageText}
-                        onChange={updateNewMessageTextHandler}
-                    />
-                </div>
-                <button onClick={addMessageHandler}>add message</button>
-            </div>
+            <NewMessageForm onSubmit={addMessage}/>
         </div>
     );
 };

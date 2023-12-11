@@ -1,6 +1,4 @@
-import {ActionsType} from './store';
 import {DialogsPageType} from '../components/Dialogs/Dialogs';
-import {addPost, updateNewPostText} from './profile-reducer';
 
 const initState: DialogsPageType = {
     dialogs: [
@@ -17,22 +15,16 @@ const initState: DialogsPageType = {
         {id: 2, message: 'Hello!'},
         {id: 3, message: 'How are you?'},
         {id: 4, message: 'Fine, tnx'}
-    ],
-
-    newMessageText: ''
+    ]
 }
 
-type UpdateNewMessageTextAT = ReturnType<typeof updateNewMessageText>
 
 type AddMessageAT = ReturnType<typeof addMessage>
 
-export type DialogsActionsType = UpdateNewMessageTextAT | AddMessageAT
+export type DialogsActionsType = AddMessageAT
 
 export const dialogsReducer = (state: DialogsPageType = initState, action: DialogsActionsType): DialogsPageType => {
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT': {
-            return {...state, newMessageText: action.payload.newMessageText}
-        }
         case 'ADD-MESSAGE': {
             const newMessage = {
                 id: state.messages.length + 1,
@@ -45,12 +37,6 @@ export const dialogsReducer = (state: DialogsPageType = initState, action: Dialo
     }
 }
 
-export const updateNewMessageText = (newMessageText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT' as const,
-        payload: {newMessageText}
-    }
-}
 
 export const addMessage = (message: string) => {
     return {
