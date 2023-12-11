@@ -1,11 +1,10 @@
 import React from 'react';
-import {Button, Checkbox, Form, Input} from 'antd';
 import {useFormik} from 'formik';
 import {useAppDispatch, useAppSelector} from '../../redux/redux-store';
 import {login} from '../../redux/auth-reducer';
 import {Redirect} from 'react-router-dom';
-
 import 'antd/dist/antd.css'
+import {Alert, Button, Checkbox, Form, Input} from 'antd';
 
 type FieldType = {
     email: string;
@@ -47,50 +46,47 @@ export const Login: React.FC = () => {
     });
 
     if (isAuth) {
-        return  <Redirect to="/profile"/>
+        return <Redirect to="/profile"/>
     }
 
     return (
-        <Form
-            labelCol={{span: 8}}
-            wrapperCol={{span: 16}}
-            style={{maxWidth: 600}}
-            initialValues={{rememberMe: formik.values.rememberMe}}
-            onFinish={formik.handleSubmit}
-        >
-            <Form.Item<FieldType>
-                label="Email"
-                {...formik.getFieldProps('email')}
+        <div>
+            <Form
+                style={{maxWidth: 300}}
+                initialValues={{rememberMe: formik.values.rememberMe}}
+                onFinish={formik.handleSubmit}
+                layout="vertical"
             >
-                <Input/>
-            </Form.Item>
-            {formik.errors.email && formik.touched.email
-                && <div style={{color: 'red'}}>
-                    {formik.errors.email}
-                </div>}
-            <Form.Item<FieldType>
-                label="Password"
-                {...formik.getFieldProps('password')}
-            >
-                <Input.Password/>
-            </Form.Item>
-            {formik.errors.password && formik.touched.password
-                && <div style={{color: 'red'}}>
-                    {formik.errors.password}
-                </div>}
-            <Form.Item<FieldType>
-                valuePropName="checked"
-                wrapperCol={{offset: 8, span: 16}}
-                {...formik.getFieldProps('rememberMe')}
-            >
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+                <Form.Item
+                    label="Email"
+                    {...formik.getFieldProps('email')}
+                >
+                    <Input/>
+                </Form.Item>
+                {formik.errors.email && formik.touched.email
+                    && <Alert message={formik.errors.email} style={{backgroundColor: 'red'}}/>}
+                <Form.Item
+                    label="Password"
+                    {...formik.getFieldProps('password')}
+                >
+                    <Input.Password/>
+                </Form.Item>
+                {formik.errors.password && formik.touched.password
+                    && <Alert message={formik.errors.password} style={{backgroundColor: 'red'}}/>}
+                <Form.Item
+                    valuePropName="checked"
+                    wrapperCol={{offset: 8, span: 16}}
+                    {...formik.getFieldProps('rememberMe')}
+                >
+                    <Checkbox>Remember me</Checkbox>
+                </Form.Item>
 
-            <Form.Item wrapperCol={{offset: 8, span: 16}}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-            </Form.Item>
-        </Form>
+                <Form.Item wrapperCol={{offset: 8, span: 16}}>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
     )
 };
