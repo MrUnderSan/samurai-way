@@ -109,7 +109,7 @@ export const toggleFollowingProgress = (followingInProgress: boolean, id: string
 type ToggleFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
 
 
-export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+export const fetchUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     toggleIsFetching(true)
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
